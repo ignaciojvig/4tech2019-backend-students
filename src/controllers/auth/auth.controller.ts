@@ -1,15 +1,13 @@
-import { Controller, Post, Body } from '@nestjs/common';
-import { LoginViewModel } from 'src/domain/login.viewmodel';
-import { AuthService } from 'src/services/auth/auth.service';
+import { Controller, Post, Body } from "@nestjs/common";
+import { LoginViewModel } from "src/domain/login.viewmodel";
+import { AuthService } from "src/services/auth/auth.service";
 
-@Controller('auth')
+@Controller("auth")
 export class AuthController {
-    constructor(private authService: AuthService) {
-    }
+  constructor(private authService: AuthService) {}
 
-    @Post('login')
-    login(@Body() login: LoginViewModel) {
-        return this.authService.login(login);
-    }
-
+  @Post("login")
+  login(@Body() login: LoginViewModel) {
+    return this.authService.login(login);
+  }
 }
