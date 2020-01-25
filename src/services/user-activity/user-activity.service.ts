@@ -63,7 +63,9 @@ export class UserActivityService {
             ));
         }
 
-        return await this.userActivityRepository.create(uploadImageObj);
+        const createdUserActivity = await this.userActivityRepository.create(uploadImageObj);
+
+        return this.convertImageToBase64ForOneFile(createdUserActivity);
     }
 
     convertImagesToBase64(userActivities: UserActivity[]) {
@@ -76,6 +78,13 @@ export class UserActivityService {
                 };
             }),
         );
+    }
+
+    convertImageToBase64ForOneFile(userActivity: UserActivity) {
+        return {
+            ...userActivity,
+            imgEncoded: readFileSync('../images/' + userActivity.fileName, 'base64'),
+        };
     }
 
 }
