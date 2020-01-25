@@ -6,12 +6,14 @@ import { UserActivityRepository } from 'src/repositories/user-activity-repositor
 import { UserActivity } from 'src/domain/schemas/user-activity.schema';
 import { readFileSync } from 'fs';
 import { LikeOrDislikeViewModel } from 'src/domain/like-or-dislike.viewmodel';
+import { WebsocketGateway } from 'src/websocket/websocket.gateway';
 
 @Injectable()
 export class UserActivityService {
     constructor(
         private readonly userRepository: UserRepository,
-        private readonly userActivityRepository: UserActivityRepository) {
+        private readonly userActivityRepository: UserActivityRepository,
+        private readonly websocketGateway: WebsocketGateway) {
     }
 
     async getRecentUploads(index: string) {
@@ -44,7 +46,10 @@ export class UserActivityService {
             userActivity.likes.push(user._id.toString());
         }
 
-        return await this.userActivityRepository.update(userActivity);
+        const updatedUserActivity = await this.userActivityRepository.update(userActivity);
+        this.websocketGateway.notifyOnLike(userActivity._id, userActivity.userId);
+
+        return updatedUserActivity;
     }
 
     async uploadImage(userId: string, filename: string, description: string) {

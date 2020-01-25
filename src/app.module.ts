@@ -14,6 +14,8 @@ import { UserActivityController } from './controllers/user-activity/user-activit
 import { UserActivitySchema } from './domain/schemas/user-activity.schema';
 import { UserActivityService } from './services/user-activity/user-activity.service';
 import { UserActivityRepository } from './repositories/user-activity-repository/user-activity.repository';
+import { WebSocketGateway } from '@nestjs/websockets';
+import { WebsocketGateway } from './websocket/websocket.gateway';
 
 @Module({
   imports: [
@@ -34,6 +36,6 @@ import { UserActivityRepository } from './repositories/user-activity-repository/
       }),
   ],
   controllers: [AppController, UserController, AuthController, UserActivityController],
-  providers: [AppService, UserService, UserRepository, AuthService, JwtStrategy, UserActivityService, UserActivityRepository],
+  providers: [AppService, UserService, UserRepository, AuthService, JwtStrategy, UserActivityService, UserActivityRepository, WebsocketGateway],
 })
 export class AppModule { }
