@@ -1,4 +1,4 @@
-import { IsNotEmpty, MaxLength, Max, Length } from "class-validator";
+import { IsNotEmpty, MaxLength, Max, Length } from 'class-validator';
 
 export class UserViewModel {
   constructor(userLogin: string, userName: string, password: string) {

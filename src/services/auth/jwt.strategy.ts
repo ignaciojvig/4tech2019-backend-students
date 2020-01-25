@@ -9,7 +9,7 @@ import { PassportStrategy } from "@nestjs/passport";
 // deve estar protegida por medidas apropriadas (como por exemplo
 // secret vaults, variáveis de ambiente ou serviços de configuração)
 
-export const secretKey = "wingardium leviosa";
+export const secretKey = 'wingardium leviosa';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -17,7 +17,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: secretKey
+      secretOrKey: secretKey,
     });
   }
 
